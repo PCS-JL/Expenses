@@ -1,0 +1,1632 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+							<style>
+								body {
+									background-color: white; /* Ensure the iframe has a white background */
+								}
+
+								
+							</style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Cost Report - Expenses Summary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #f5576c;
+        }
+        .header h1 {
+            color: #2d3748;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .header .subtitle {
+            color: #718096;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .project-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+            background: #f7fafc;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #f5576c;
+        }
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .info-label {
+            font-size: 12px;
+            color: #718096;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+        .info-value {
+            font-size: 16px;
+            color: #2d3748;
+            font-weight: 700;
+        }
+        .financial-overview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .financial-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .financial-card:hover {
+            transform: translateY(-5px);
+        }
+        .financial-card.revenue {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        }
+        .financial-card.expense {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .financial-card.warning {
+            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+        }
+        .financial-label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+        .financial-value {
+            font-size: 26px;
+            font-weight: 700;
+        }
+        .section-title {
+            font-size: 22px;
+            color: #2d3748;
+            margin-bottom: 25px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .section-title .title-text {
+            display: flex;
+            align-items: center;
+        }
+        .section-title .title-text::before {
+            content: '';
+            width: 4px;
+            height: 28px;
+            background: #f5576c;
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+        .view-toggle {
+            display: flex;
+            gap: 10px;
+            background: #edf2f7;
+            padding: 5px;
+            border-radius: 8px;
+        }
+        .view-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            color: #4a5568;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        .view-btn.active {
+            background: white;
+            color: #f5576c;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .view-btn:hover {
+            background: #fff;
+        }
+
+        /* Overview View */
+        .overview-view {
+            display: block;
+        }
+        
+        /* Charts Section */
+        .charts-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .chart-wrapper {
+            background: #f7fafc;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .chart-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .pie-chart {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto 20px;
+        }
+        .chart-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+        .legend-name {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            color: #2d3748;
+            font-weight: 600;
+        }
+        .legend-value {
+            color: #4a5568;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* Status Summary */
+        .status-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .status-group {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid;
+        }
+        .status-group.excellent {
+            border-color: #48bb78;
+            background: #f0fff4;
+        }
+        .status-group.caution {
+            border-color: #ecc94b;
+            background: #fefcbf;
+        }
+        .status-group.alert {
+            border-color: #fc8181;
+            background: #fff5f5;
+        }
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .status-icon {
+            font-size: 24px;
+        }
+        .status-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+        .status-count {
+            font-size: 14px;
+            color: #718096;
+            margin-left: auto;
+        }
+        .status-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+        .status-item-name {
+            color: #2d3748;
+            font-weight: 600;
+        }
+        .status-item-value {
+            color: #4a5568;
+            font-size: 12px;
+        }
+        .status-item-value.over {
+            color: #e53e3e;
+            font-weight: 700;
+        }
+
+        /* Cards Section */
+        .cards-section {
+            margin-top: 30px;
+        }
+        .expense-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .expense-card {
+            background: white;
+            border: 3px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .expense-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+        }
+        .expense-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #f5576c;
+        }
+        .expense-card.excellent::before {
+            background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);
+        }
+        .expense-card.caution::before {
+            background: linear-gradient(90deg, #ecc94b 0%, #d69e2e 100%);
+        }
+        .expense-card.alert::before {
+            background: linear-gradient(90deg, #fc8181 0%, #f56565 100%);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .card-icon {
+            font-size: 32px;
+            margin-right: 12px;
+        }
+        .card-title-wrapper {
+            flex: 1;
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 3px;
+        }
+        .card-subtitle {
+            font-size: 12px;
+            color: #718096;
+        }
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .status-badge.excellent {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        .status-badge.caution {
+            background: #fef5e7;
+            color: #975a16;
+        }
+        .status-badge.alert {
+            background: #fed7d7;
+            color: #c53030;
+        }
+        .card-amount {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        .card-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .stat-box {
+            background: #f7fafc;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .stat-label {
+            font-size: 10px;
+            color: #718096;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .stat-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+        .stat-value.positive {
+            color: #38a169;
+        }
+        .stat-value.negative {
+            color: #e53e3e;
+        }
+        .progress-container {
+            margin-top: 15px;
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 11px;
+        }
+        .progress-label {
+            color: #718096;
+            font-weight: 600;
+        }
+        .progress-percent {
+            color: #2d3748;
+            font-weight: 700;
+        }
+        .progress-bar {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+        }
+        .progress-segment {
+            height: 100%;
+            transition: width 0.8s ease;
+        }
+        .progress-segment.actual {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+        .progress-segment.etc {
+            background: linear-gradient(90deg, #a0aec0 0%, #cbd5e0 100%);
+        }
+        .progress-segment.vac-positive {
+            background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);
+        }
+        .progress-segment.vac-negative {
+            background: linear-gradient(90deg, #fc8181 0%, #f56565 100%);
+        }
+        .progress-legend {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 10px;
+            color: #718096;
+        }
+
+        /* Data Tables View */
+        .tables-view {
+            display: none;
+        }
+        .table-container {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .data-table th {
+            background: #2d3748;
+            color: white;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 11px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            white-space: nowrap;
+        }
+        .data-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #2d3748;
+        }
+        .data-table tr:hover {
+            background: #f7fafc;
+        }
+        .data-table tr.total-row {
+            background: #edf2f7;
+            font-weight: 700;
+            font-size: 13px;
+        }
+        .data-table tr.total-row td {
+            border-top: 3px solid #2d3748;
+            border-bottom: 3px solid #2d3748;
+        }
+        .data-table tr.sub-item td {
+            padding-left: 30px;
+            background: #fafafa;
+            font-size: 11px;
+        }
+        .data-table tr.po-item td {
+            padding-left: 50px;
+            background: #f7fafc;
+            font-size: 11px;
+            color: #718096;
+        }
+        .data-table tr.estimate-row {
+            background: #fff5e6;
+        }
+        .data-table td.positive {
+            color: #38a169;
+            font-weight: 600;
+        }
+        .data-table td.negative {
+            color: #e53e3e;
+            font-weight: 700;
+        }
+        .data-table td.alert {
+            background: #fff5f5;
+            color: #e53e3e;
+            font-weight: 700;
+        }
+        .data-table td.text-right {
+            text-align: right;
+        }
+        .data-table td.text-center {
+            text-align: center;
+        }
+
+        @media (max-width: 1024px) {
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+            .financial-overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .project-info,
+            .financial-overview,
+            .expense-cards {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 24px;
+            }
+            .view-toggle {
+                flex-direction: column;
+            }
+            .section-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .data-table {
+                font-size: 10px;
+            }
+            .data-table th,
+            .data-table td {
+                padding: 8px 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>💰 Project Cost Report</h1>
+            <p class="subtitle">Expenses Page Summary - Period: Dec'25</p>
+        </div>
+
+        <!-- Project Info -->
+        <div class="project-info">
+            <div class="info-item">
+                <span class="info-label">Project Number</span>
+                <span class="info-value">MSS/25001</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Project Name</span>
+                <span class="info-value">Cost Management System</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Project Manager</span>
+                <span class="info-value">Dickson</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Client</span>
+                <span class="info-value">Mermaid</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Project Type</span>
+                <span class="info-value">EPCI</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Period</span>
+                <span class="info-value">30-Dec-25</span>
+            </div>
+        </div>
+
+        <!-- Financial Overview -->
+        <div class="financial-overview">
+            <div class="financial-card revenue">
+                <div class="financial-label">Total Revenue</div>
+                <div class="financial-value">$500,000</div>
+            </div>
+            <div class="financial-card expense">
+                <div class="financial-label">Total Budget (BAC)</div>
+                <div class="financial-value">$332,000</div>
+            </div>
+            <div class="financial-card warning">
+                <div class="financial-label">Estimate at Completion (EAC)</div>
+                <div class="financial-value">$312,000</div>
+            </div>
+            <div class="financial-card" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);">
+                <div class="financial-label">Expected Savings</div>
+                <div class="financial-value">$20,000</div>
+            </div>
+        </div>
+
+        <!-- Section Title with Toggle -->
+        <div class="section-title">
+            <span class="title-text">Expense Breakdown by Category</span>
+            <div class="view-toggle">
+                <button class="view-btn active" onclick="switchView('overview')">📊 Overview</button>
+                <button class="view-btn" onclick="switchView('tables')">📋 Data Tables</button>
+            </div>
+        </div>
+
+        <!-- Overview View -->
+        <div class="overview-view" id="overviewView">
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <!-- Pie Chart -->
+                <div class="chart-wrapper">
+                    <div class="chart-title">💵 Budget Distribution (Total: $332K)</div>
+                    <svg class="pie-chart" viewBox="0 0 200 200">
+                        <!-- Subcontractor 30% -->
+                        <circle cx="100" cy="100" r="80" fill="none" stroke="#667eea" stroke-width="40"
+                                stroke-dasharray="150.8 502.4" transform="rotate(-90 100 100)"/>
+                        <!-- Mob/Demob 30% -->
+                        <circle cx="100" cy="100" r="80" fill="none" stroke="#f093fb" stroke-width="40"
+                                stroke-dasharray="150.8 502.4" stroke-dashoffset="-150.8" transform="rotate(-90 100 100)"/>
+                        <!-- Charter Hire 15% -->
+                        <circle cx="100" cy="100" r="80" fill="none" stroke="#48bb78" stroke-width="40"
+                                stroke-dasharray="75.4 502.4" stroke-dashoffset="-301.6" transform="rotate(-90 100 100)"/>
+                        <!-- Consumables 15% -->
+                        <circle cx="100" cy="100" r="80" fill="none" stroke="#ed8936" stroke-width="40"
+                                stroke-dasharray="75.4 502.4" stroke-dashoffset="-377" transform="rotate(-90 100 100)"/>
+                        <!-- Others 10% -->
+                        <circle cx="100" cy="100" r="80" fill="none" stroke="#a0aec0" stroke-width="40"
+                                stroke-dasharray="50.24 502.4" stroke-dashoffset="-452.4" transform="rotate(-90 100 100)"/>
+                        <text x="100" y="100" text-anchor="middle" dy=".3em" font-size="24" font-weight="bold" fill="#2d3748">$332K</text>
+                    </svg>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <span class="legend-name">
+                                <span class="legend-color" style="background: #667eea;"></span>
+                                Subcontractor
+                            </span>
+                            <span class="legend-value">$100K (30%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-name">
+                                <span class="legend-color" style="background: #f093fb;"></span>
+                                Mob/Demob
+                            </span>
+                            <span class="legend-value">$100K (30%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-name">
+                                <span class="legend-color" style="background: #48bb78;"></span>
+                                Charter Hire
+                            </span>
+                            <span class="legend-value">$50K (15%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-name">
+                                <span class="legend-color" style="background: #ed8936;"></span>
+                                Consumables
+                            </span>
+                            <span class="legend-value">$50K (15%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-name">
+                                <span class="legend-color" style="background: #a0aec0;"></span>
+                                Others (Combined)
+                            </span>
+                            <span class="legend-value">$32K (10%)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Summary -->
+                <div class="chart-wrapper">
+                    <div class="chart-title">📊 Overall Status by Category</div>
+                    <div class="status-summary">
+                        <!-- Excellent -->
+                        <div class="status-group excellent">
+                            <div class="status-header">
+                                <span class="status-icon">🟢</span>
+                                <span class="status-title">Excellent (Under Budget/Ready)</span>
+                                <span class="status-count">6 Items</span>
+                            </div>
+                            <div class="status-items">
+                                <div class="status-item">
+                                    <span class="status-item-name">Subcontractor</span>
+                                    <span class="status-item-value positive">$20,000 savings (80%)</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-item-name">Charter Hire</span>
+                                    <span class="status-item-value">Not started (100%)</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-item-name">Consumables</span>
+                                    <span class="status-item-value">Not started (100%)</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-item-name">Others</span>
+                                    <span class="status-item-value">Not started (100%)</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-item-name">Vessel</span>
+                                    <span class="status-item-value">No budget</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-item-name">Overhead</span>
+                                    <span class="status-item-value">No budget</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Caution -->
+                        <div class="status-group caution">
+                            <div class="status-header">
+                                <span class="status-icon">🟡</span>
+                                <span class="status-title">Caution (Near Limit)</span>
+                                <span class="status-count">0 Items</span>
+                            </div>
+                            <div class="status-items">
+                                <div class="status-item">
+                                    <span class="status-item-name" style="color: #718096; font-style: italic;">No items in this category</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alert -->
+                        <div class="status-group alert">
+                            <div class="status-header">
+                                <span class="status-icon">🔴</span>
+                                <span class="status-title">Alert (Over Budget)</span>
+                                <span class="status-count">1 Item</span>
+                            </div>
+                            <div class="status-items">
+                                <div class="status-item">
+                                    <span class="status-item-name">Mob/Demob</span>
+                                    <span class="status-item-value over">$10,000 over budget (110%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards Section -->
+            <div class="cards-section">
+                <div class="expense-cards">
+                    <!-- Card 1: Subcontractor -->
+                    <div class="expense-card excellent">
+                        <div class="card-header">
+                            <div style="display: flex; align-items: center; flex: 1;">
+                                <span class="card-icon">🔷</span>
+                                <div class="card-title-wrapper">
+                                    <div class="card-title">Subcontractor</div>
+                                    <div class="card-subtitle">Account: 54001100</div>
+                                </div>
+                            </div>
+                            <span class="status-badge excellent">✓ Excellent</span>
+                        </div>
+                        <div class="card-amount">$100,000</div>
+                        <div class="card-stats">
+                            <div class="stat-box">
+                                <div class="stat-label">Actual Paid</div>
+                                <div class="stat-value">$30,000</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Commit</div>
+                                <div class="stat-value">$50,000</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">EAC</div>
+                                <div class="stat-value positive">$80,000</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Savings</div>
+                                <div class="stat-value positive">$20,000</div>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-header">
+                                <span class="progress-label">Progress Breakdown</span>
+                                <span class="progress-percent">80% Used | 20% VAC</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-segment actual" style="width: 30%"></div>
+                                <div class="progress-segment etc" style="width: 50%"></div>
+                                <div class="progress-segment vac-positive" style="width: 20%"></div>
+                            </div>
+                            <div class="progress-legend">
+                                <span>Actual: 30%</span>
+                                <span>ETC: 50%</span>
+                                <span>VAC: 20%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Mob/Demob -->
+                    <div class="expense-card alert">
+                        <div class="card-header">
+                            <div style="display: flex; align-items: center; flex: 1;">
+                                <span class="card-icon">🚚</span>
+                                <div class="card-title-wrapper">
+                                    <div class="card-title">Mob / Demobilisation</div>
+                                    <div class="card-subtitle">Account: 54001200</div>
+                                </div>
+                            </div>
+                            <span class="status-badge alert">⚠️ Alert</span>
+                        </div>
+                        <div class="card-amount">$100,000</div>
+                        <div class="card-stats">
+                            <div class="stat-box">
+                                <div class="stat-label">Actual Paid</div>
+                                <div class="stat-value">$30,000</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Commit</div>
+                                <div class="stat-value">$50,000</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">EAC</div>
+                                <div class="stat-value negative">$110,000</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Over Budget</div>
+                                <div class="stat-value negative">-$10,000</div>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-header">
+                                <span class="progress-label">Progress Breakdown</span>
+                                <span class="progress-percent" style="color: #e53e3e;">110% Used | -10% Over</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-segment actual" style="width: 30%"></div>
+                                <div class="progress-segment etc" style="width: 70%"></div>
+                                <div class="progress-segment vac-negative" style="width: 10%"></div>
+                            </div>
+                            <div class="progress-legend">
+                                <span>Actual: 30%</span>
+                                <span>ETC: 80%</span>
+                                <span style="color: #e53e3e;">Over: 10%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Charter Hire -->
+                    <div class="expense-card excellent">
+                        <div class="card-header">
+                            <div style="display: flex; align-items: center; flex: 1;">
+                                <span class="card-icon">⚓</span>
+                                <div class="card-title-wrapper">
+                                    <div class="card-title">Charter Hire</div>
+                                    <div class="card-subtitle">Account: 54001300</div>
+                                </div>
+                            </div>
+                            <span class="status-badge excellent">✓ Excellent</span>
+                        </div>
+                        <div class="card-amount">$50,000</div>
+                        <div class="card-stats">
+                            <div class="stat-box">
+                                <div class="stat-label">Actual Paid</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Commit</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">EAC</div>
+                                <div class="stat-value">$50,000</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Savings</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-header">
+                                <span class="progress-label">Progress Breakdown</span>
+                                <span class="progress-percent">0% Used | 100% Available</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-segment etc" style="width: 100%"></div>
+                            </div>
+                            <div class="progress-legend">
+                                <span>Actual: 0%</span>
+                                <span>ETC: 100%</span>
+                                <span>VAC: 0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Consumables -->
+                    <div class="expense-card excellent">
+                        <div class="card-header">
+                            <div style="display: flex; align-items: center; flex: 1;">
+                                <span class="card-icon">📦</span>
+                                <div class="card-title-wrapper">
+                                    <div class="card-title">Consumables</div>
+                                    <div class="card-subtitle">Account: 54001400</div>
+                                </div>
+                            </div>
+                            <span class="status-badge excellent">✓ Excellent</span>
+                        </div>
+                        <div class="card-amount">$50,000</div>
+                        <div class="card-stats">
+                            <div class="stat-box">
+                                <div class="stat-label">Actual Paid</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Commit</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">EAC</div>
+                                <div class="stat-value">$50,000</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Savings</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-header">
+                                <span class="progress-label">Progress Breakdown</span>
+                                <span class="progress-percent">0% Used | 100% Available</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-segment etc" style="width: 100%"></div>
+                            </div>
+                            <div class="progress-legend">
+                                <span>Actual: 0%</span>
+                                <span>ETC: 100%</span>
+                                <span>VAC: 0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Other Categories -->
+                    <div class="expense-card excellent">
+                        <div class="card-header">
+                            <div style="display: flex; align-items: center; flex: 1;">
+                                <span class="card-icon">📊</span>
+                                <div class="card-title-wrapper">
+                                    <div class="card-title">Other Categories</div>
+                                    <div class="card-subtitle">Multiple Accounts (5 items)</div>
+                                </div>
+                            </div>
+                            <span class="status-badge excellent">✓ Excellent</span>
+                        </div>
+                        <div class="card-amount">$32,000</div>
+                        <div class="card-stats">
+                            <div class="stat-box">
+                                <div class="stat-label">Actual Paid</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Commit</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">EAC</div>
+                                <div class="stat-value">$32,000</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Savings</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 10px; font-size: 11px; color: #718096;">
+                            Includes: Recharged ($10k), Other Direct ($10k), Catering ($10k), Port Due ($1k), Freight ($1k)
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-header">
+                                <span class="progress-label">Progress Breakdown</span>
+                                <span class="progress-percent">0% Used | 100% Available</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-segment etc" style="width: 100%"></div>
+                            </div>
+                            <div class="progress-legend">
+                                <span>Actual: 0%</span>
+                                <span>ETC: 100%</span>
+                                <span>VAC: 0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6: Adjustment -->
+                    <div class="expense-card excellent">
+                        <div class="card-header">
+                            <div style="display: flex; align-items: center; flex: 1;">
+                                <span class="card-icon">⚖️</span>
+                                <div class="card-title-wrapper">
+                                    <div class="card-title">Adjustment</div>
+                                    <div class="card-subtitle">Account Correction</div>
+                                </div>
+                            </div>
+                            <span class="status-badge excellent">✓ Cost Reduction</span>
+                        </div>
+                        <div class="card-amount" style="color: #38a169;">-$10,000</div>
+                        <div class="card-stats">
+                            <div class="stat-box">
+                                <div class="stat-label">Actual Paid</div>
+                                <div class="stat-value positive">-$10,000</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Commit</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">EAC</div>
+                                <div class="stat-value">$10,000</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Savings</div>
+                                <div class="stat-value positive">$10,000</div>
+                            </div>
+                        </div>
+                        <div style="background: #c6f6d5; padding: 12px; border-radius: 8px; margin-top: 10px;">
+                            <p style="color: #22543d; font-size: 12px; text-align: center;">
+                                <strong>💚 Good News!</strong><br>
+                                Account adjustment resulted in $10,000 cost savings
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 7: Vessel -->
+                    <div class="expense-card excellent">
+                        <div class="card-header">
+                            <div style="display: flex; align-items: center; flex: 1;">
+                                <span class="card-icon">🚢</span>
+                                <div class="card-title-wrapper">
+                                    <div class="card-title">Vessel</div>
+                                    <div class="card-subtitle">No Budget Allocated</div>
+                                </div>
+                            </div>
+                            <span class="status-badge excellent">✓ N/A</span>
+                        </div>
+                        <div class="card-amount">$0</div>
+                        <div class="card-stats">
+                            <div class="stat-box">
+                                <div class="stat-label">Actual Paid</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Commit</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">EAC</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Savings</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-header">
+                                <span class="progress-label">Progress Breakdown</span>
+                                <span class="progress-percent">No Budget</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div style="width: 100%; height: 100%; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #718096;">
+                                    N/A
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 8: Overhead -->
+                    <div class="expense-card excellent">
+                        <div class="card-header">
+                            <div style="display: flex; align-items: center; flex: 1;">
+                                <span class="card-icon">🏢</span>
+                                <div class="card-title-wrapper">
+                                    <div class="card-title">Overhead</div>
+                                    <div class="card-subtitle">No Budget Allocated</div>
+                                </div>
+                            </div>
+                            <span class="status-badge excellent">✓ N/A</span>
+                        </div>
+                        <div class="card-amount">$0</div>
+                        <div class="card-stats">
+                            <div class="stat-box">
+                                <div class="stat-label">Actual Paid</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Commit</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">EAC</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Savings</div>
+                                <div class="stat-value">$0</div>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-header">
+                                <span class="progress-label">Progress Breakdown</span>
+                                <span class="progress-percent">No Budget</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div style="width: 100%; height: 100%; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #718096;">
+                                    N/A
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Tables View -->
+        <div class="tables-view" id="tablesView">
+            <!-- Main Table with Year Breakdown -->
+            <div class="table-container">
+                <h3 style="margin-bottom: 15px; color: #2d3748;">Project Expenses Detail Table with Year Breakdown</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Account Code</th>
+                            <th>CBS Group</th>
+                            <th>% Org</th>
+                            <th>Original Budget (M)</th>
+                            <th>% Cur</th>
+                            <th>Current Budget (B)</th>
+                            <th>Committed (C)</th>
+                            <th>Actual to Date (D)</th>
+                            <th>Committed + Actual (E)</th>
+                            <th>Available (F)</th>
+                            <th>% Ava</th>
+                            <th>ETC (G)</th>
+                            <th>EAC (H)</th>
+                            <th>% Use</th>
+                            <th>VAC Balance (I)</th>
+                            <th>Remain Expense (J)</th>
+                            <th style="background: #4a5568;">2025</th>
+                            <th style="background: #4a5568;">2026</th>
+                            <th style="background: #4a5568;">2027</th>
+                            <th style="background: #4a5568;">2028</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Subcontractor -->
+                        <tr>
+                            <td><strong>54001100</strong></td>
+                            <td><strong>Subcontractor</strong></td>
+                            <td class="text-center">30%</td>
+                            <td class="text-right">$100,000</td>
+                            <td class="text-center">30%</td>
+                            <td class="text-right">$100,000</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-right">$30,000</td>
+                            <td class="text-right">$80,000</td>
+                            <td class="text-right">$20,000</td>
+                            <td class="text-center">20%</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-right">$80,000</td>
+                            <td class="text-center">80%</td>
+                            <td class="text-right positive">$20,000</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-right">$30,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                        </tr>
+                        <tr class="sub-item">
+                            <td>5411031</td>
+                            <td>Offshore Personnel Day Rate</td>
+                            <td class="text-center"></td>
+                            <td class="text-right"></td>
+                            <td class="text-center"></td>
+                            <td class="text-right">$100,000</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-right">$30,000</td>
+                            <td class="text-right">$80,000</td>
+                            <td class="text-right">$20,000</td>
+                            <td class="text-center">20%</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-right">$80,000</td>
+                            <td class="text-center">80%</td>
+                            <td class="text-right positive">$20,000</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                        </tr>
+                        <tr class="po-item">
+                            <td colspan="2">PO no & PO Description</td>
+                            <td class="text-center"></td>
+                            <td class="text-right"></td>
+                            <td class="text-center"></td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-right">$20,000</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-right"></td>
+                            <td class="text-center"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-center"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                        </tr>
+                        <tr class="po-item">
+                            <td colspan="2">PO no & PO Description</td>
+                            <td class="text-center"></td>
+                            <td class="text-right"></td>
+                            <td class="text-center"></td>
+                            <td class="text-right">$30,000</td>
+                            <td class="text-right">$20,000</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-right">$30,000</td>
+                            <td class="text-right"></td>
+                            <td class="text-center"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-center"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                        </tr>
+                        <tr class="estimate-row po-item">
+                            <td colspan="2">Estimate Description</td>
+                            <td class="text-center"></td>
+                            <td class="text-right"></td>
+                            <td class="text-center"></td>
+                            <td class="text-right">$20,000</td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right">$20,000</td>
+                            <td class="text-center"></td>
+                            <td class="text-right">$20,000</td>
+                            <td class="text-right">$30,000</td>
+                            <td class="text-center"></td>
+                            <td class="text-right positive">$20,000</td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                        </tr>
+                        
+                        <!-- Empty rows -->
+                        <tr>
+                            <td>5411002</td>
+                            <td>Allowance Permanent Local</td>
+                            <td colspan="18"></td>
+                        </tr>
+                        <tr>
+                            <td>5411003</td>
+                            <td>Sub - Contract</td>
+                            <td colspan="18"></td>
+                        </tr>
+                        <tr>
+                            <td>5411004</td>
+                            <td>Onshore Analysis</td>
+                            <td colspan="18"></td>
+                        </tr>
+                        <tr>
+                            <td>5411005</td>
+                            <td>ROV Consumables and Cement</td>
+                            <td colspan="18"></td>
+                        </tr>
+                        <tr>
+                            <td>5411006</td>
+                            <td>Diving Inspection & Repair</td>
+                            <td colspan="18"></td>
+                        </tr>
+                        <tr>
+                            <td>5411007</td>
+                            <td>Professional Fees</td>
+                            <td colspan="18"></td>
+                        </tr>
+
+                        <!-- Mob/Demob -->
+                        <tr>
+                            <td><strong>54001200</strong></td>
+                            <td><strong>Mob / Demobilisation</strong></td>
+                            <td class="text-center">30%</td>
+                            <td class="text-right">$100,000</td>
+                            <td class="text-center">30%</td>
+                            <td class="text-right">$100,000</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-right">$30,000</td>
+                            <td class="text-right">$80,000</td>
+                            <td class="text-right">$20,000</td>
+                            <td class="text-center">20%</td>
+                            <td class="text-right">$80,000</td>
+                            <td class="text-right alert">$110,000</td>
+                            <td class="text-center alert">110%</td>
+                            <td class="text-right negative">-$10,000</td>
+                            <td class="text-right">$80,000</td>
+                            <td class="text-right">$30,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                        </tr>
+
+                        <!-- Charter Hire -->
+                        <tr>
+                            <td><strong>54001300</strong></td>
+                            <td><strong>Charter Hire</strong></td>
+                            <td class="text-center">15%</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-center">15%</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-center">100%</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-center">100%</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                        </tr>
+
+                        <!-- Consumables -->
+                        <tr>
+                            <td><strong>54001400</strong></td>
+                            <td><strong>Consumables (Owned Cost)</strong></td>
+                            <td class="text-center">15%</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-center">15%</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-center">100%</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-center">100%</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$50,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                        </tr>
+
+                        <!-- Recharged -->
+                        <tr>
+                            <td><strong>54001500</strong></td>
+                            <td><strong>Recharged / Cost Plus</strong></td>
+                            <td class="text-center">3%</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-center">3%</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-center">100%</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-center">100%</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                        </tr>
+
+                        <!-- Other Direct Cost -->
+                        <tr>
+                            <td><strong>54001600</strong></td>
+                            <td><strong>Other Direct Cost</strong></td>
+                            <td class="text-center">3%</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-center">3%</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-center">100%</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-center">100%</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                        </tr>
+
+                        <!-- Catering & Bunks -->
+                        <tr>
+                            <td><strong>54001700</strong></td>
+                            <td><strong>Catering & Bunks</strong></td>
+                            <td class="text-center">3%</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-center">3%</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-center">100%</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-center">100%</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                        </tr>
+
+                        <!-- Port Due -->
+                        <tr>
+                            <td><strong>54001800</strong></td>
+                            <td><strong>Port Due</strong></td>
+                            <td class="text-center">0%</td>
+                            <td class="text-right">$1,000</td>
+                            <td class="text-center">0%</td>
+                            <td class="text-right">$1,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$1,000</td>
+                            <td class="text-center">100%</td>
+                            <td class="text-right">$1,000</td>
+                            <td class="text-right">$1,000</td>
+                            <td class="text-center">100%</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$1,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                        </tr>
+
+                        <!-- Freight -->
+                        <tr>
+                            <td><strong>54001900</strong></td>
+                            <td><strong>Freight Expenses</strong></td>
+                            <td class="text-center">0%</td>
+                            <td class="text-right">$1,000</td>
+                            <td class="text-center">0%</td>
+                            <td class="text-right">$1,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$1,000</td>
+                            <td class="text-center">100%</td>
+                            <td class="text-right">$1,000</td>
+                            <td class="text-right">$1,000</td>
+                            <td class="text-center">100%</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$1,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                        </tr>
+
+                        <!-- Adjustment -->
+                        <tr>
+                            <td><strong></strong></td>
+                            <td><strong>Adjustment</strong></td>
+                            <td class="text-center"></td>
+                            <td class="text-right"></td>
+                            <td class="text-center"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right positive">-$10,000</td>
+                            <td class="text-right positive">-$10,000</td>
+                            <td class="text-right"></td>
+                            <td class="text-center"></td>
+                            <td class="text-right"></td>
+                            <td class="text-right">$10,000</td>
+                            <td class="text-center"></td>
+                            <td class="text-right positive">$10,000</td>
+                            <td class="text-right"></td>
+                            <td class="text-right positive">-$10,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                        </tr>
+
+                        <!-- Grand Total -->
+                        <tr class="total-row">
+                            <td colspan="2"><strong>Grand Total Project Expenses</strong></td>
+                            <td class="text-center"><strong>100%</strong></td>
+                            <td class="text-right"><strong>$332,000</strong></td>
+                            <td class="text-center"><strong>100%</strong></td>
+                            <td class="text-right"><strong>$332,000</strong></td>
+                            <td class="text-right"><strong>$100,000</strong></td>
+                            <td class="text-right"><strong>$50,000</strong></td>
+                            <td class="text-right"><strong>$150,000</strong></td>
+                            <td class="text-right"><strong>$172,000</strong></td>
+                            <td class="text-center"><strong>52%</strong></td>
+                            <td class="text-right"><strong>$262,000</strong></td>
+                            <td class="text-right"><strong>$312,000</strong></td>
+                            <td class="text-center"><strong>94%</strong></td>
+                            <td class="text-right positive"><strong>$20,000</strong></td>
+                            <td class="text-right"><strong>$262,000</strong></td>
+                            <td class="text-right"><strong>$50,000</strong></td>
+                            <td class="text-right"><strong>$0</strong></td>
+                            <td class="text-right"><strong>$50,000</strong></td>
+                            <td class="text-right"><strong>$50,000</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchView(viewType) {
+            const overviewView = document.getElementById('overviewView');
+            const tablesView = document.getElementById('tablesView');
+            const buttons = document.querySelectorAll('.view-btn');
+
+            // Remove active class from all buttons
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            if (viewType === 'overview') {
+                overviewView.style.display = 'block';
+                tablesView.style.display = 'none';
+                buttons[0].classList.add('active');
+            } else if (viewType === 'tables') {
+                overviewView.style.display = 'none';
+                tablesView.style.display = 'block';
+                buttons[1].classList.add('active');
+            }
+        }
+
+        // Animate progress bars on load
+        window.addEventListener('load', function() {
+            const progressSegments = document.querySelectorAll('.progress-segment');
+            progressSegments.forEach(segment => {
+                const width = segment.style.width;
+                segment.style.width = '0%';
+                setTimeout(() => {
+                    segment.style.width = width;
+                }, 100);
+            });
+        });
+
+        // Responsive handling with debounce
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                console.log('Window resized - layout adjusted');
+            }, 250);
+        });
+    </script>
+</body>
+</html>
+
+							<script>
+                            	
+							</script>
+                        </body>
+                        </html>
+                    
