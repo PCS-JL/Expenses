@@ -84,15 +84,6 @@
         .financial-card:hover {
             transform: translateY(-5px);
         }
-        .financial-card.revenue {
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-        }
-        .financial-card.expense {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-        .financial-card.warning {
-            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
-        }
         .financial-label {
             font-size: 12px;
             opacity: 0.9;
@@ -612,19 +603,19 @@
 
         <!-- Financial Overview -->
         <div class="financial-overview">
-            <div class="financial-card revenue">
+            <div class="financial-card">
                 <div class="financial-label">Total Revenue</div>
                 <div class="financial-value">$500,000</div>
             </div>
-            <div class="financial-card expense">
+            <div class="financial-card">
                 <div class="financial-label">Total Budget (BAC)</div>
                 <div class="financial-value">$332,000</div>
             </div>
-            <div class="financial-card warning">
+            <div class="financial-card">
                 <div class="financial-label">Estimate at Completion (EAC)</div>
                 <div class="financial-value">$312,000</div>
             </div>
-            <div class="financial-card" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);">
+            <div class="financial-card">
                 <div class="financial-label">Expected Savings</div>
                 <div class="financial-value">$20,000</div>
             </div>
@@ -796,7 +787,7 @@
                                 <div class="stat-value">$30,000</div>
                             </div>
                             <div class="stat-box">
-                                <div class="stat-label">Commit</div>
+                                <div class="stat-label">Committed</div>
                                 <div class="stat-value">$50,000</div>
                             </div>
                             <div class="stat-box">
@@ -845,7 +836,7 @@
                                 <div class="stat-value">$30,000</div>
                             </div>
                             <div class="stat-box">
-                                <div class="stat-label">Commit</div>
+                                <div class="stat-label">Committed</div>
                                 <div class="stat-value">$50,000</div>
                             </div>
                             <div class="stat-box">
@@ -894,7 +885,7 @@
                                 <div class="stat-value">$0</div>
                             </div>
                             <div class="stat-box">
-                                <div class="stat-label">Commit</div>
+                                <div class="stat-label">Committed</div>
                                 <div class="stat-value">$0</div>
                             </div>
                             <div class="stat-box">
@@ -941,7 +932,7 @@
                                 <div class="stat-value">$0</div>
                             </div>
                             <div class="stat-box">
-                                <div class="stat-label">Commit</div>
+                                <div class="stat-label">Committed</div>
                                 <div class="stat-value">$0</div>
                             </div>
                             <div class="stat-box">
@@ -988,7 +979,7 @@
                                 <div class="stat-value">$0</div>
                             </div>
                             <div class="stat-box">
-                                <div class="stat-label">Commit</div>
+                                <div class="stat-label">Committed</div>
                                 <div class="stat-value">$0</div>
                             </div>
                             <div class="stat-box">
@@ -1038,7 +1029,7 @@
                                 <div class="stat-value positive">-$10,000</div>
                             </div>
                             <div class="stat-box">
-                                <div class="stat-label">Commit</div>
+                                <div class="stat-label">Committed</div>
                                 <div class="stat-value">$0</div>
                             </div>
                             <div class="stat-box">
@@ -1077,7 +1068,7 @@
                                 <div class="stat-value">$0</div>
                             </div>
                             <div class="stat-box">
-                                <div class="stat-label">Commit</div>
+                                <div class="stat-label">Committed</div>
                                 <div class="stat-value">$0</div>
                             </div>
                             <div class="stat-box">
@@ -1121,7 +1112,7 @@
                                 <div class="stat-value">$0</div>
                             </div>
                             <div class="stat-box">
-                                <div class="stat-label">Commit</div>
+                                <div class="stat-label">Committed</div>
                                 <div class="stat-value">$0</div>
                             </div>
                             <div class="stat-box">
@@ -1507,6 +1498,54 @@
                             <td class="text-center">100%</td>
                             <td class="text-right">$0</td>
                             <td class="text-right">$1,000</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                        </tr>
+
+                        <!-- Vessel -->
+                        <tr>
+                            <td><strong></strong></td>
+                            <td><strong>Vessel</strong></td>
+                            <td class="text-center"></td>
+                            <td class="text-right"></td>
+                            <td class="text-center"></td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-center"></td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-center"></td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                        </tr>
+
+                        <!-- Overhead -->
+                        <tr>
+                            <td><strong></strong></td>
+                            <td><strong>Overhead</strong></td>
+                            <td class="text-center"></td>
+                            <td class="text-right"></td>
+                            <td class="text-center"></td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-center"></td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
+                            <td class="text-center"></td>
+                            <td class="text-right">$0</td>
+                            <td class="text-right">$0</td>
                             <td class="text-right">$0</td>
                             <td class="text-right">$0</td>
                             <td class="text-right">$0</td>
